@@ -50,7 +50,7 @@ pub fn main() !void {
             try seeds.append(try std.fmt.parseInt(usize, s, 10));
         }
 
-        std.debug.print("seeds: {any}\n", .{seeds.items});
+        // std.debug.print("seeds: {any}\n", .{seeds.items});
     }
 
     { //get seed_to_soil
@@ -67,7 +67,7 @@ pub fn main() !void {
             try seed_to_soil_map.append(current_range);
         }
 
-        std.debug.print("seed_to_soil_map: {any}\n", .{seed_to_soil_map.items});
+        // std.debug.print("seed_to_soil_map: {any}\n", .{seed_to_soil_map.items});
     }
 
     { //get soil_to_fertilizer
@@ -85,7 +85,7 @@ pub fn main() !void {
             try soil_to_fertilizer_map.append(current_range);
         }
 
-        std.debug.print("soil_to_fertilizer_map: {any}\n", .{soil_to_fertilizer_map.items});
+        // std.debug.print("soil_to_fertilizer_map: {any}\n", .{soil_to_fertilizer_map.items});
     }
 
     { //get fertilizer_to_water
@@ -103,7 +103,7 @@ pub fn main() !void {
             try fertilizer_to_water_map.append(current_range);
         }
 
-        std.debug.print("fertilizer_to_water_map: {any}\n", .{fertilizer_to_water_map.items});
+        // std.debug.print("fertilizer_to_water_map: {any}\n", .{fertilizer_to_water_map.items});
     }
 
     { // get water_to_light
@@ -121,7 +121,7 @@ pub fn main() !void {
             try water_to_light_map.append(current_range);
         }
 
-        std.debug.print("water_to_light_map: {any}\n", .{water_to_light_map.items});
+        // std.debug.print("water_to_light_map: {any}\n", .{water_to_light_map.items});
     }
 
     { //get light_to_tmeperature
@@ -139,7 +139,7 @@ pub fn main() !void {
             try light_to_tmeperature_map.append(current_range);
         }
 
-        std.debug.print("light_to_tmeperature_map: {any}\n", .{light_to_tmeperature_map.items});
+        // std.debug.print("light_to_tmeperature_map: {any}\n", .{light_to_tmeperature_map.items});
     }
 
     { // get temperature_to_humidity
@@ -157,7 +157,7 @@ pub fn main() !void {
             try temperature_to_humidity_map.append(current_range);
         }
 
-        std.debug.print("temperature_to_humidity_map: {any}\n", .{temperature_to_humidity_map.items});
+        // std.debug.print("temperature_to_humidity_map: {any}\n", .{temperature_to_humidity_map.items});
     }
 
     { // get humidity_to_location
@@ -175,124 +175,32 @@ pub fn main() !void {
             try humidity_to_location_map.append(current_range);
         }
 
-        std.debug.print("humidity_to_location_map: {any}\n", .{humidity_to_location_map.items});
+        // std.debug.print("humidity_to_location_map: {any}\n", .{humidity_to_location_map.items});
     }
 
-    { //part 1
-        var locations = std.ArrayList(usize).init(alloc);
-        defer locations.deinit();
-        //seed to location
-        for (seeds.items) |seed| {
-            var soil_id: usize = blk: {
-                for (seed_to_soil_map.items) |i| {
-                    if (i[1] > seed) continue; //start of source range larger than source
-                    if (seed > i[1] + i[2]) continue; //seed out of range
-                    const temp = seed - i[1];
-                    break :blk i[0] + temp;
-                }
-                break :blk 0;
-            };
-            if (soil_id == 0) soil_id = seed;
-            var fertilizer_id: usize = blk: {
-                for (soil_to_fertilizer_map.items) |i| {
-                    if (i[1] > soil_id) continue; //start of source range larger than source
-                    if (soil_id > i[1] + i[2]) continue; //seed out of range
-                    const temp = soil_id - i[1];
-                    break :blk i[0] + temp;
-                }
-                break :blk 0;
-            };
-            if (fertilizer_id == 0) fertilizer_id = soil_id;
-            var water_id: usize = blk: {
-                for (fertilizer_to_water_map.items) |i| {
-                    if (i[1] > fertilizer_id) continue; //start of source range larger than source
-                    if (fertilizer_id > i[1] + i[2]) continue; //seed out of range
-                    const temp = fertilizer_id - i[1];
-                    break :blk i[0] + temp;
-                }
-                break :blk 0;
-            };
+    //part
+    //
+    var seeed_ranges = std.ArrayList(@Vector(2, usize)).init(alloc);
+    defer seeed_ranges.deinit();
 
-            if (water_id == 0) water_id = fertilizer_id;
-            var light_id: usize = blk: {
-                for (water_to_light_map.items) |i| {
-                    if (i[1] > water_id) continue; //start of source range larger than source
-                    if (water_id > i[1] + i[2]) continue; //seed out of range
-                    const temp = water_id - i[1];
-                    break :blk i[0] + temp;
-                }
-            };
-            if (light_id == 0) light_id = water_id;
-            var temperature: usize = blk: {
-                for (light_to_tmeperature_map.items) |i| {
-                    if (i[1] > light_id) continue; //start of source range larger than source
-                    if (light_id > i[1] + i[2]) continue; //seed out of range
-                    const temp = light_id - i[1];
-                    break :blk i[0] + temp;
-                }
-                break :blk 0;
-            };
+    var maps = std.ArrayList(std.ArrayList([3]usize)).init(alloc);
+    defer maps.deinit();
+    try maps.append(seed_to_soil_map);
+    try maps.append(soil_to_fertilizer_map);
+    try maps.append(fertilizer_to_water_map);
+    try maps.append(water_to_light_map);
+    try maps.append(light_to_tmeperature_map);
+    try maps.append(temperature_to_humidity_map);
+    try maps.append(humidity_to_location_map);
 
-            if (temperature == 0) temperature = light_id;
-            var humidity: usize = blk: {
-                for (temperature_to_humidity_map.items) |i| {
-                    if (i[1] > temperature) continue; //start of source range larger than source
-                    if (temperature > i[1] + i[2]) continue; //seed out of range
-                    const temp = temperature - i[1];
-                    break :blk i[0] + temp;
-                }
-                break :blk 0;
-            };
-
-            if (humidity == 0) humidity = temperature;
-            var location: usize = blk: {
-                for (humidity_to_location_map.items) |i| {
-                    if (i[1] > humidity) continue; //start of source range larger than source
-                    if (humidity > i[1] + i[2]) continue; //seed out of range
-                    const temp = humidity - i[1];
-                    break :blk i[0] + temp;
-                }
-                break :blk 0;
-            };
-            if (location == 0) location = humidity;
-            std.debug.print("seed:{} soil_id:{} fertilizer_id:{} water_id: {} light_id {}, temperature {} humidity {} location {}\n", .{ seed, soil_id, fertilizer_id, water_id, light_id, temperature, humidity, location });
-
-            try locations.append(location);
-        }
-
-        std.debug.print("locations: {any}\n\n", .{locations.items});
-
-        var min: usize = 0xffffffffffffffff;
-        for (locations.items) |l| {
-            if (min > l) min = l;
-        }
-        std.debug.print("min: {}\n", .{min});
+    var i: usize = 0;
+    while (i < seeds.items.len - 1) : (i += 2) {
+        try seeed_ranges.append(@Vector(2, usize){ seeds.items[i], seeds.items[i] + seeds.items[i + 1] });
     }
-    { //part
-        //
-        var min: usize = 0xffffffffffffffff;
-        var seeed_ranges = std.ArrayList(@Vector(2, usize)).init(alloc);
-        defer seeed_ranges.deinit();
 
-        var maps = std.ArrayList(std.ArrayList([3]usize)).init(alloc);
-        defer maps.deinit();
-        try maps.append(seed_to_soil_map);
-        try maps.append(soil_to_fertilizer_map);
-        try maps.append(fertilizer_to_water_map);
-        try maps.append(water_to_light_map);
-        try maps.append(light_to_tmeperature_map);
-        try maps.append(temperature_to_humidity_map);
-        try maps.append(humidity_to_location_map);
-
-        var i: usize = 0;
-        while (i < seeds.items.len - 1) : (i += 2) {
-            try seeed_ranges.append(@Vector(2, usize){ seeds.items[i], seeds.items[i] + seeds.items[i + 1] });
-        }
-
+    { // std.debug.print("seed_ranges: {any}\n", .{seeed_ranges.items});
         var locations = std.ArrayList(@Vector(2, usize)).init(alloc);
         defer locations.deinit();
-
-        std.debug.print("seed_ranges: {any}\n", .{seeed_ranges.items});
         for (maps.items) |map| {
             while (seeed_ranges.items.len > 0) {
                 var current = seeed_ranges.pop();
@@ -317,14 +225,37 @@ pub fn main() !void {
             locations.clearRetainingCapacity();
         }
 
-        std.debug.print("locations: {any}\n", .{seeed_ranges.items});
+        // std.debug.print("locations: {any}\n", .{seeed_ranges.items});
 
+        var min: usize = 0xffffffffffffffff;
         for (seeed_ranges.items) |c| {
             const min_vec = @reduce(.Min, c);
             if (min > min_vec) min = min_vec;
         }
-        std.debug.print("min: {}\n", .{min});
-
-        // std.debug.print("part2: {}\n", .{min});
+        std.debug.print("part 2: {}\n", .{min});
     }
+    {
+        var locations = std.ArrayList(usize).init(alloc);
+        defer locations.deinit();
+        for (seeds.items) |*current| {
+            for (maps.items) |map| {
+                for (map.items) |m| {
+                    if (current.* >= m[1] and current.* <= m[1] + m[2]) {
+                        current.* = m[0] + (current.* - m[1]);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // std.debug.print("locations: {any}\n", .{seeed_ranges.items});
+        var min: usize = 0xffffffffffffffff;
+
+        for (seeds.items) |c| {
+            if (min > c) min = c;
+        }
+        std.debug.print("part 1: {}\n", .{min});
+    }
+    // std.debug.print("part2: {}\n", .{min});
+
 }
