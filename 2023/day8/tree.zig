@@ -10,35 +10,44 @@ const Node = struct {
     right: ?*Node = null,
     depth: usize = 0,
 
-    pub fn build_tree(self: *Node, productions: *std.StringHashMap([2][]const u8), nodes: *std.StringHashMap(Node)) !void {
+    pub fn build_tree(self: *Node, productions: *std.StringHashMap([2][]const u8), nodes: *std.ArrayList(Node)) !usize {
+        if (self.depth > input_len or std.mem.eql(u8, self.name, "---")) {
+            return 1;
+        }
+
         const prods = productions.get(self.name).?;
-        std.debug.print("self.name: {s}\n", .{self.name});
-        std.debug.print("prods: {s},{s}\n", .{ prods[0], prods[1] });
-        std.debug.print("nodes: {any}\n", .{nodes.capacity()});
+        // std.debug.print("self.name: {s}\n", .{self.name});
+        // std.debug.print("prods: {s},{s}\n", .{ prods[0], prods[1] });
+        // std.debug.print("nodes: {any}\n", .{nodes.items.len});
+        // std.debug.print("depth: {}\n", .{self.depth});
 
-        if (self.depth > input_len) return;
-
+        if (self.depth + 1 == input_len) {
+            self.name = "---";
+            return 1;
+        }
         if (!(std.mem.eql(u8, self.name, prods[0]))) {
             var left = Node{ .name = prods[0], .depth = self.depth + 1 };
-            var l = try nodes.getOrPut(left.name);
-            if (!l.found_existing) {
-                l.value_ptr.* = left;
-                try l.value_ptr.build_tree(productions, nodes);
-            }
-            self.left = l.value_ptr;
+            var l = left;
+            _ = try nodes.append(l);
+            // std.debug.print("---{s}\n ", .{left.name});
+            _ = try l.build_tree(productions, nodes);
+            self.left = &l;
         }
         if (!(std.mem.eql(u8, self.name, prods[1]))) {
             var right = Node{ .name = prods[1], .depth = self.depth + 1 };
-            var r = try nodes.getOrPut(right.name);
-            if (!r.found_existing) {
-                r.value_ptr.* = right;
-                try r.value_ptr.build_tree(productions, nodes);
-            }
-            self.right = r.value_ptr;
+            var r = right;
+            _ = try nodes.append(r);
+            r.depth += 1;
+            _ = try r.build_tree(productions, nodes);
+
+            self.right = &r;
         }
+
+        return 0;
     }
 
     pub fn ends_with_Z(self: *Node) bool {
+        std.debug.print("self.name>>> {s}\n", .{self.name});
         return self.name[2] == 'Z';
     }
 
@@ -57,19 +66,19 @@ fn part2_single_thread(start: *std.ArrayList(Node), lr_select: []const u8) !usiz
         const p = @mod(steps, lr_select.len);
         if (lr_select[p] == 'L') {
             for (state) |*s| {
-                std.debug.print("{any}", .{s.name});
-                s = s.go_left();
-                std.debug.print("{any}", .{s.name});
+                std.debug.print("{s}\n", .{s.name});
+                s.* = s.go_left().*;
+                std.debug.print("{s}\n", .{s.name});
             }
         } else {
             for (state) |*s| {
-                std.debug.print("{any}", .{s.name});
+                std.debug.print("{s}\n", .{s.name});
                 s.* = s.go_right().*;
-                std.debug.print("{any}", .{s.name});
+                std.debug.print("{s}\n", .{s.name});
             }
         }
         for (state) |*s| {
-            std.debug.print("{any}", .{s.name});
+            std.debug.print("+++++++++++++{s}\n", .{s.name});
             if (!s.ends_with_Z()) break;
         } else {
             break;
@@ -86,7 +95,7 @@ pub fn main() !void {
 
     var it = std.mem.tokenize(u8, input, "\n=(), ");
 
-    var nodes = std.StringHashMap(Node).init(alloc);
+    var nodes = std.ArrayList(Node).init(alloc);
     defer nodes.deinit();
     const lr_select = it.next().?;
 
@@ -112,9 +121,13 @@ pub fn main() !void {
     //build_tree
 
     for (start_nodes.items) |*s| {
-        try nodes.put(s.name, s.*);
-        try s.*.build_tree(&productions, &nodes);
+        std.debug.print("====={s}\n", .{s.name});
+        _ = try s.build_tree(&productions, &nodes);
     }
+
+    // for (start_nodes.items) |*s| {
+    //     std.debug.print("====={s}\n", .{s.name});
+    // }
 
     const p1 = try part2_single_thread(&start_nodes, lr_select);
     std.debug.print("{}\n", .{p1});
