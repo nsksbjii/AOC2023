@@ -301,14 +301,14 @@ pub fn main() !void {
     defer _ = gpa.deinit();
     const alloc = gpa.allocator();
 
-    var sl = try alloc.alloc(SearchNode, MAX_SEARCH);
+    var sl = try alloc.alloc(SearchNode, MAX_SEARCH); //stack is to small
     defer alloc.free(sl);
     var sl_len: usize = 0;
 
     var map: [input_size][input_size]u8 = undefined;
     var path: [input_size][input_size]u8 = undefined;
 
-    var nodes = try alloc.alloc([4][input_size][input_size]Node, 10);
+    var nodes = try alloc.alloc([4][input_size][input_size]Node, 10); //stack is to small so it has to be on heap
     defer alloc.free(nodes);
 
     {
