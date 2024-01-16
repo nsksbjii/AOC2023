@@ -1,0 +1,262 @@
+[38;5;238m───────┬─────────────────────────────────────────────────────────────────────────────────────────────────[0m
+       [38;5;238m│ [0m[1mSTDIN[0m
+[38;5;238m───────┼─────────────────────────────────────────────────────────────────────────────────────────────────[0m
+[38;5;238m   1[0m   [38;5;238m│[0m [38;2;248;248;242mUsage: zig build-exe   [options] [files][0m
+[38;5;238m   2[0m   [38;5;238m│[0m [38;2;248;248;242m       zig build-lib   [options] [files][0m
+[38;5;238m   3[0m   [38;5;238m│[0m [38;2;248;248;242m       zig build-obj   [options] [files][0m
+[38;5;238m   4[0m   [38;5;238m│[0m [38;2;248;248;242m       zig test        [options] [files][0m
+[38;5;238m   5[0m   [38;5;238m│[0m [38;2;248;248;242m       zig run         [options] [files] [-- [args]][0m
+[38;5;238m   6[0m   [38;5;238m│[0m [38;2;248;248;242m       zig translate-c [options] [file][0m
+[38;5;238m   7[0m   [38;5;238m│[0m 
+[38;5;238m   8[0m   [38;5;238m│[0m [38;2;248;248;242mSupported file types:[0m
+[38;5;238m   9[0m   [38;5;238m│[0m [38;2;248;248;242m                    .zig    Zig source code[0m
+[38;5;238m  10[0m   [38;5;238m│[0m [38;2;248;248;242m                      .o    ELF object file[0m
+[38;5;238m  11[0m   [38;5;238m│[0m [38;2;248;248;242m                      .o    Mach-O (macOS) object file[0m
+[38;5;238m  12[0m   [38;5;238m│[0m [38;2;248;248;242m                      .o    WebAssembly object file[0m
+[38;5;238m  13[0m   [38;5;238m│[0m [38;2;248;248;242m                    .obj    COFF (Windows) object file[0m
+[38;5;238m  14[0m   [38;5;238m│[0m [38;2;248;248;242m                    .lib    COFF (Windows) static library[0m
+[38;5;238m  15[0m   [38;5;238m│[0m [38;2;248;248;242m                      .a    ELF static library[0m
+[38;5;238m  16[0m   [38;5;238m│[0m [38;2;248;248;242m                      .a    Mach-O (macOS) static library[0m
+[38;5;238m  17[0m   [38;5;238m│[0m [38;2;248;248;242m                      .a    WebAssembly static library[0m
+[38;5;238m  18[0m   [38;5;238m│[0m [38;2;248;248;242m                     .so    ELF shared object (dynamic link)[0m
+[38;5;238m  19[0m   [38;5;238m│[0m [38;2;248;248;242m                    .dll    Windows Dynamic Link Library[0m
+[38;5;238m  20[0m   [38;5;238m│[0m [38;2;248;248;242m                  .dylib    Mach-O (macOS) dynamic library[0m
+[38;5;238m  21[0m   [38;5;238m│[0m [38;2;248;248;242m                    .tbd    (macOS) text-based dylib definition[0m
+[38;5;238m  22[0m   [38;5;238m│[0m [38;2;248;248;242m                      .s    Target-specific assembly source code[0m
+[38;5;238m  23[0m   [38;5;238m│[0m [38;2;248;248;242m                      .S    Assembly with C preprocessor (requires LLVM extensions)[0m
+[38;5;238m  24[0m   [38;5;238m│[0m [38;2;248;248;242m                      .c    C source code (requires LLVM extensions)[0m
+[38;5;238m  25[0m   [38;5;238m│[0m [38;2;248;248;242m  .cxx .cc .C .cpp .stub    C++ source code (requires LLVM extensions)[0m
+[38;5;238m  26[0m   [38;5;238m│[0m [38;2;248;248;242m                      .m    Objective-C source code (requires LLVM extensions)[0m
+[38;5;238m  27[0m   [38;5;238m│[0m [38;2;248;248;242m                     .mm    Objective-C++ source code (requires LLVM extensions)[0m
+[38;5;238m  28[0m   [38;5;238m│[0m [38;2;248;248;242m                     .bc    LLVM IR Module (requires LLVM extensions)[0m
+[38;5;238m  29[0m   [38;5;238m│[0m [38;2;248;248;242m                     .cu    Cuda source code (requires LLVM extensions)[0m
+[38;5;238m  30[0m   [38;5;238m│[0m 
+[38;5;238m  31[0m   [38;5;238m│[0m [38;2;248;248;242mGeneral Options:[0m
+[38;5;238m  32[0m   [38;5;238m│[0m [38;2;248;248;242m  -h, --help                Print this help and exit[0m
+[38;5;238m  33[0m   [38;5;238m│[0m [38;2;248;248;242m  --color [auto|off|on]     Enable or disable colored error messages[0m
+[38;5;238m  34[0m   [38;5;238m│[0m [38;2;248;248;242m  -femit-bin[=path]         (default) Output machine code[0m
+[38;5;238m  35[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-emit-bin             Do not output machine code[0m
+[38;5;238m  36[0m   [38;5;238m│[0m [38;2;248;248;242m  -femit-asm[=path]         Output .s (assembly code)[0m
+[38;5;238m  37[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-emit-asm             (default) Do not output .s (assembly code)[0m
+[38;5;238m  38[0m   [38;5;238m│[0m [38;2;248;248;242m  -femit-llvm-ir[=path]     Produce a .ll file with optimized LLVM IR (requires LLVM extensions)[0m
+[38;5;238m  39[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-emit-llvm-ir         (default) Do not produce a .ll file with optimized LLVM IR[0m
+[38;5;238m  40[0m   [38;5;238m│[0m [38;2;248;248;242m  -femit-llvm-bc[=path]     Produce an optimized LLVM module as a .bc file (requires LLVM extens[0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242mions)[0m
+[38;5;238m  41[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-emit-llvm-bc         (default) Do not produce an optimized LLVM module as a .bc file[0m
+[38;5;238m  42[0m   [38;5;238m│[0m [38;2;248;248;242m  -femit-h[=path]           Generate a C header file (.h)[0m
+[38;5;238m  43[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-emit-h               (default) Do not generate a C header file (.h)[0m
+[38;5;238m  44[0m   [38;5;238m│[0m [38;2;248;248;242m  -femit-docs[=path]        Create a docs/ dir with html documentation[0m
+[38;5;238m  45[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-emit-docs            (default) Do not produce docs/ dir with html documentation[0m
+[38;5;238m  46[0m   [38;5;238m│[0m [38;2;248;248;242m  -femit-implib[=path]      (default) Produce an import .lib when building a Windows DLL[0m
+[38;5;238m  47[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-emit-implib          Do not produce an import .lib when building a Windows DLL[0m
+[38;5;238m  48[0m   [38;5;238m│[0m [38;2;248;248;242m  --show-builtin            Output the source of @import("builtin") then exit[0m
+[38;5;238m  49[0m   [38;5;238m│[0m [38;2;248;248;242m  --cache-dir [path]        Override the local cache directory[0m
+[38;5;238m  50[0m   [38;5;238m│[0m [38;2;248;248;242m  --global-cache-dir [path] Override the global cache directory[0m
+[38;5;238m  51[0m   [38;5;238m│[0m [38;2;248;248;242m  --zig-lib-dir [path]      Override path to Zig installation lib directory[0m
+[38;5;238m  52[0m   [38;5;238m│[0m 
+[38;5;238m  53[0m   [38;5;238m│[0m [38;2;248;248;242mCompile Options:[0m
+[38;5;238m  54[0m   [38;5;238m│[0m [38;2;248;248;242m  -target [name]            <arch><sub>-<os>-<abi> see the targets command[0m
+[38;5;238m  55[0m   [38;5;238m│[0m [38;2;248;248;242m  -mcpu [cpu]               Specify target CPU and feature set[0m
+[38;5;238m  56[0m   [38;5;238m│[0m [38;2;248;248;242m  -mcmodel=[default|tiny|   Limit range of code and data virtual addresses[0m
+[38;5;238m  57[0m   [38;5;238m│[0m [38;2;248;248;242m            small|kernel|[0m
+[38;5;238m  58[0m   [38;5;238m│[0m [38;2;248;248;242m            medium|large][0m
+[38;5;238m  59[0m   [38;5;238m│[0m [38;2;248;248;242m  -x language               Treat subsequent input files as having type <language>[0m
+[38;5;238m  60[0m   [38;5;238m│[0m [38;2;248;248;242m  -mred-zone                Force-enable the "red-zone"[0m
+[38;5;238m  61[0m   [38;5;238m│[0m [38;2;248;248;242m  -mno-red-zone             Force-disable the "red-zone"[0m
+[38;5;238m  62[0m   [38;5;238m│[0m [38;2;248;248;242m  -fomit-frame-pointer      Omit the stack frame pointer[0m
+[38;5;238m  63[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-omit-frame-pointer   Store the stack frame pointer[0m
+[38;5;238m  64[0m   [38;5;238m│[0m [38;2;248;248;242m  -mexec-model=[value]      (WASI) Execution model[0m
+[38;5;238m  65[0m   [38;5;238m│[0m [38;2;248;248;242m  --name [name]             Override root name (not a file path)[0m
+[38;5;238m  66[0m   [38;5;238m│[0m [38;2;248;248;242m  -O [mode]                 Choose what to optimize for[0m
+[38;5;238m  67[0m   [38;5;238m│[0m [38;2;248;248;242m    Debug                   (default) Optimizations off, safety on[0m
+[38;5;238m  68[0m   [38;5;238m│[0m [38;2;248;248;242m    ReleaseFast             Optimize for performance, safety off[0m
+[38;5;238m  69[0m   [38;5;238m│[0m [38;2;248;248;242m    ReleaseSafe             Optimize for performance, safety on[0m
+[38;5;238m  70[0m   [38;5;238m│[0m [38;2;248;248;242m    ReleaseSmall            Optimize for small binary, safety off[0m
+[38;5;238m  71[0m   [38;5;238m│[0m [38;2;248;248;242m  --mod [name]:[deps]:[src] Make a module available for dependency under the given name[0m
+[38;5;238m  72[0m   [38;5;238m│[0m [38;2;248;248;242m      deps: [dep],[dep],...[0m
+[38;5;238m  73[0m   [38;5;238m│[0m [38;2;248;248;242m      dep:  [[import=]name][0m
+[38;5;238m  74[0m   [38;5;238m│[0m [38;2;248;248;242m  --deps [dep],[dep],...    Set dependency names for the root package[0m
+[38;5;238m  75[0m   [38;5;238m│[0m [38;2;248;248;242m      dep:  [[import=]name][0m
+[38;5;238m  76[0m   [38;5;238m│[0m [38;2;248;248;242m  --main-pkg-path           Set the directory of the root package[0m
+[38;5;238m  77[0m   [38;5;238m│[0m [38;2;248;248;242m  -fPIC                     Force-enable Position Independent Code[0m
+[38;5;238m  78[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-PIC                  Force-disable Position Independent Code[0m
+[38;5;238m  79[0m   [38;5;238m│[0m [38;2;248;248;242m  -fPIE                     Force-enable Position Independent Executable[0m
+[38;5;238m  80[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-PIE                  Force-disable Position Independent Executable[0m
+[38;5;238m  81[0m   [38;5;238m│[0m [38;2;248;248;242m  -flto                     Force-enable Link Time Optimization (requires LLVM extensions)[0m
+[38;5;238m  82[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-lto                  Force-disable Link Time Optimization[0m
+[38;5;238m  83[0m   [38;5;238m│[0m [38;2;248;248;242m  -fstack-check             Enable stack probing in unsafe builds[0m
+[38;5;238m  84[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-stack-check          Disable stack probing in safe builds[0m
+[38;5;238m  85[0m   [38;5;238m│[0m [38;2;248;248;242m  -fstack-protector         Enable stack protection in unsafe builds[0m
+[38;5;238m  86[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-stack-protector      Disable stack protection in safe builds[0m
+[38;5;238m  87[0m   [38;5;238m│[0m [38;2;248;248;242m  -fsanitize-c              Enable C undefined behavior detection in unsafe builds[0m
+[38;5;238m  88[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-sanitize-c           Disable C undefined behavior detection in safe builds[0m
+[38;5;238m  89[0m   [38;5;238m│[0m [38;2;248;248;242m  -fvalgrind                Include valgrind client requests in release builds[0m
+[38;5;238m  90[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-valgrind             Omit valgrind client requests in debug builds[0m
+[38;5;238m  91[0m   [38;5;238m│[0m [38;2;248;248;242m  -fsanitize-thread         Enable Thread Sanitizer[0m
+[38;5;238m  92[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-sanitize-thread      Disable Thread Sanitizer[0m
+[38;5;238m  93[0m   [38;5;238m│[0m [38;2;248;248;242m  -fdll-export-fns          Mark exported functions as DLL exports (Windows)[0m
+[38;5;238m  94[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-dll-export-fns       Force-disable marking exported functions as DLL exports[0m
+[38;5;238m  95[0m   [38;5;238m│[0m [38;2;248;248;242m  -funwind-tables           Always produce unwind table entries for all functions[0m
+[38;5;238m  96[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-unwind-tables        Never produce unwind table entries[0m
+[38;5;238m  97[0m   [38;5;238m│[0m [38;2;248;248;242m  -fllvm                    Force using LLVM as the codegen backend[0m
+[38;5;238m  98[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-llvm                 Prevent using LLVM as the codegen backend[0m
+[38;5;238m  99[0m   [38;5;238m│[0m [38;2;248;248;242m  -flibllvm                 Force using the LLVM API in the codegen backend[0m
+[38;5;238m 100[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-libllvm              Prevent using the LLVM API in the codegen backend[0m
+[38;5;238m 101[0m   [38;5;238m│[0m [38;2;248;248;242m  -fclang                   Force using Clang as the C/C++ compilation backend[0m
+[38;5;238m 102[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-clang                Prevent using Clang as the C/C++ compilation backend[0m
+[38;5;238m 103[0m   [38;5;238m│[0m [38;2;248;248;242m  -freference-trace[=num]   How many lines of reference trace should be shown per compile error[0m
+[38;5;238m 104[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-reference-trace      Disable reference trace[0m
+[38;5;238m 105[0m   [38;5;238m│[0m [38;2;248;248;242m  -ferror-tracing           Enable error tracing in ReleaseFast mode[0m
+[38;5;238m 106[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-error-tracing        Disable error tracing in Debug and ReleaseSafe mode[0m
+[38;5;238m 107[0m   [38;5;238m│[0m [38;2;248;248;242m  -fsingle-threaded         Code assumes there is only one thread[0m
+[38;5;238m 108[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-single-threaded      Code may not assume there is only one thread[0m
+[38;5;238m 109[0m   [38;5;238m│[0m [38;2;248;248;242m  -fbuiltin                 Enable implicit builtin knowledge of functions[0m
+[38;5;238m 110[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-builtin              Disable implicit builtin knowledge of functions[0m
+[38;5;238m 111[0m   [38;5;238m│[0m [38;2;248;248;242m  -ffunction-sections       Places each function in a separate section[0m
+[38;5;238m 112[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-function-sections    All functions go into same section[0m
+[38;5;238m 113[0m   [38;5;238m│[0m [38;2;248;248;242m  -fstrip                   Omit debug symbols[0m
+[38;5;238m 114[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-strip                Keep debug symbols[0m
+[38;5;238m 115[0m   [38;5;238m│[0m [38;2;248;248;242m  -fformatted-panics        Enable formatted safety panics[0m
+[38;5;238m 116[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-formatted-panics     Disable formatted safety panics[0m
+[38;5;238m 117[0m   [38;5;238m│[0m [38;2;248;248;242m  -ofmt=[mode]              Override target object format[0m
+[38;5;238m 118[0m   [38;5;238m│[0m [38;2;248;248;242m    elf                     Executable and Linking Format[0m
+[38;5;238m 119[0m   [38;5;238m│[0m [38;2;248;248;242m    c                       C source code[0m
+[38;5;238m 120[0m   [38;5;238m│[0m [38;2;248;248;242m    wasm                    WebAssembly[0m
+[38;5;238m 121[0m   [38;5;238m│[0m [38;2;248;248;242m    coff                    Common Object File Format (Windows)[0m
+[38;5;238m 122[0m   [38;5;238m│[0m [38;2;248;248;242m    macho                   macOS relocatables[0m
+[38;5;238m 123[0m   [38;5;238m│[0m [38;2;248;248;242m    spirv                   Standard, Portable Intermediate Representation V (SPIR-V)[0m
+[38;5;238m 124[0m   [38;5;238m│[0m [38;2;248;248;242m    plan9                   Plan 9 from Bell Labs object format[0m
+[38;5;238m 125[0m   [38;5;238m│[0m [38;2;248;248;242m    hex  (planned feature)  Intel IHEX[0m
+[38;5;238m 126[0m   [38;5;238m│[0m [38;2;248;248;242m    raw  (planned feature)  Dump machine code directly[0m
+[38;5;238m 127[0m   [38;5;238m│[0m [38;2;248;248;242m  -idirafter [dir]          Add directory to AFTER include search path[0m
+[38;5;238m 128[0m   [38;5;238m│[0m [38;2;248;248;242m  -isystem  [dir]           Add directory to SYSTEM include search path[0m
+[38;5;238m 129[0m   [38;5;238m│[0m [38;2;248;248;242m  -I[dir]                   Add directory to include search path[0m
+[38;5;238m 130[0m   [38;5;238m│[0m [38;2;248;248;242m  -D[macro]=[value]         Define C [macro] to [value] (1 if [value] omitted)[0m
+[38;5;238m 131[0m   [38;5;238m│[0m [38;2;248;248;242m  --libc [file]             Provide a file which specifies libc paths[0m
+[38;5;238m 132[0m   [38;5;238m│[0m [38;2;248;248;242m  -cflags [flags] --        Set extra flags for the next positional C source files[0m
+[38;5;238m 133[0m   [38;5;238m│[0m 
+[38;5;238m 134[0m   [38;5;238m│[0m [38;2;248;248;242mLink Options:[0m
+[38;5;238m 135[0m   [38;5;238m│[0m [38;2;248;248;242m  -l[lib], --library [lib]       Link against system library (only if actually used)[0m
+[38;5;238m 136[0m   [38;5;238m│[0m [38;2;248;248;242m  -needed-l[lib],                Link against system library (even if unused)[0m
+[38;5;238m 137[0m   [38;5;238m│[0m [38;2;248;248;242m    --needed-library [lib][0m
+[38;5;238m 138[0m   [38;5;238m│[0m [38;2;248;248;242m  -weak-l[lib]                   link against system library marking it and all[0m
+[38;5;238m 139[0m   [38;5;238m│[0m [38;2;248;248;242m    -weak_library [lib]          referenced symbols as weak[0m
+[38;5;238m 140[0m   [38;5;238m│[0m [38;2;248;248;242m  -L[d], --library-directory [d] Add a directory to the library search path[0m
+[38;5;238m 141[0m   [38;5;238m│[0m [38;2;248;248;242m  -search_paths_first            For each library search path, check for dynamic[0m
+[38;5;238m 142[0m   [38;5;238m│[0m [38;2;248;248;242m                                 lib then static lib before proceeding to next path.[0m
+[38;5;238m 143[0m   [38;5;238m│[0m [38;2;248;248;242m  -search_paths_first_static     For each library search path, check for static[0m
+[38;5;238m 144[0m   [38;5;238m│[0m [38;2;248;248;242m                                 lib then dynamic lib before proceeding to next path.[0m
+[38;5;238m 145[0m   [38;5;238m│[0m [38;2;248;248;242m  -search_dylibs_first           Search for dynamic libs in all library search[0m
+[38;5;238m 146[0m   [38;5;238m│[0m [38;2;248;248;242m                                 paths, then static libs.[0m
+[38;5;238m 147[0m   [38;5;238m│[0m [38;2;248;248;242m  -search_static_first           Search for static libs in all library search[0m
+[38;5;238m 148[0m   [38;5;238m│[0m [38;2;248;248;242m                                 paths, then dynamic libs.[0m
+[38;5;238m 149[0m   [38;5;238m│[0m [38;2;248;248;242m  -search_dylibs_only            Only search for dynamic libs.[0m
+[38;5;238m 150[0m   [38;5;238m│[0m [38;2;248;248;242m  -search_static_only            Only search for static libs.[0m
+[38;5;238m 151[0m   [38;5;238m│[0m [38;2;248;248;242m  -T[script], --script [script]  Use a custom linker script[0m
+[38;5;238m 152[0m   [38;5;238m│[0m [38;2;248;248;242m  --version-script [path]        Provide a version .map file[0m
+[38;5;238m 153[0m   [38;5;238m│[0m [38;2;248;248;242m  --dynamic-linker [path]        Set the dynamic interpreter path (usually ld.so)[0m
+[38;5;238m 154[0m   [38;5;238m│[0m [38;2;248;248;242m  --sysroot [path]               Set the system root directory (usually /)[0m
+[38;5;238m 155[0m   [38;5;238m│[0m [38;2;248;248;242m  --version [ver]                Dynamic library semver[0m
+[38;5;238m 156[0m   [38;5;238m│[0m [38;2;248;248;242m  --entry [name]                 Set the entrypoint symbol name[0m
+[38;5;238m 157[0m   [38;5;238m│[0m [38;2;248;248;242m  --force_undefined [name]       Specify the symbol must be defined for the link to succeed[0m
+[38;5;238m 158[0m   [38;5;238m│[0m [38;2;248;248;242m  -fsoname[=name]                Override the default SONAME value[0m
+[38;5;238m 159[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-soname                    Disable emitting a SONAME[0m
+[38;5;238m 160[0m   [38;5;238m│[0m [38;2;248;248;242m  -flld                          Force using LLD as the linker[0m
+[38;5;238m 161[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-lld                       Prevent using LLD as the linker[0m
+[38;5;238m 162[0m   [38;5;238m│[0m [38;2;248;248;242m  -fcompiler-rt                  Always include compiler-rt symbols in output[0m
+[38;5;238m 163[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-compiler-rt               Prevent including compiler-rt symbols in output[0m
+[38;5;238m 164[0m   [38;5;238m│[0m [38;2;248;248;242m  -rdynamic                      Add all symbols to the dynamic symbol table[0m
+[38;5;238m 165[0m   [38;5;238m│[0m [38;2;248;248;242m  -rpath [path]                  Add directory to the runtime library search path[0m
+[38;5;238m 166[0m   [38;5;238m│[0m [38;2;248;248;242m  -feach-lib-rpath               Ensure adding rpath for each used dynamic library[0m
+[38;5;238m 167[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-each-lib-rpath            Prevent adding rpath for each used dynamic library[0m
+[38;5;238m 168[0m   [38;5;238m│[0m [38;2;248;248;242m  -fallow-shlib-undefined        Allows undefined symbols in shared libraries[0m
+[38;5;238m 169[0m   [38;5;238m│[0m [38;2;248;248;242m  -fno-allow-shlib-undefined     Disallows undefined symbols in shared libraries[0m
+[38;5;238m 170[0m   [38;5;238m│[0m [38;2;248;248;242m  --build-id[=style]             At a minor link-time expense, coordinates stripped binaries[0m
+[38;5;238m 171[0m   [38;5;238m│[0m [38;2;248;248;242m      fast, uuid, sha1, md5      with debug symbols via a '.note.gnu.build-id' section[0m
+[38;5;238m 172[0m   [38;5;238m│[0m [38;2;248;248;242m      0x[hexstring]              Maximum 32 bytes[0m
+[38;5;238m 173[0m   [38;5;238m│[0m [38;2;248;248;242m      none                       (default) Disable build-id[0m
+[38;5;238m 174[0m   [38;5;238m│[0m [38;2;248;248;242m  --eh-frame-hdr                 Enable C++ exception handling by passing --eh-frame-hdr to link[0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242mer[0m
+[38;5;238m 175[0m   [38;5;238m│[0m [38;2;248;248;242m  --emit-relocs                  Enable output of relocation sections for post build tools[0m
+[38;5;238m 176[0m   [38;5;238m│[0m [38;2;248;248;242m  -z [arg]                       Set linker extension flags[0m
+[38;5;238m 177[0m   [38;5;238m│[0m [38;2;248;248;242m    nodelete                     Indicate that the object cannot be deleted from a process[0m
+[38;5;238m 178[0m   [38;5;238m│[0m [38;2;248;248;242m    notext                       Permit read-only relocations in read-only segments[0m
+[38;5;238m 179[0m   [38;5;238m│[0m [38;2;248;248;242m    defs                         Force a fatal error if any undefined symbols remain[0m
+[38;5;238m 180[0m   [38;5;238m│[0m [38;2;248;248;242m    undefs                       Reverse of -z defs[0m
+[38;5;238m 181[0m   [38;5;238m│[0m [38;2;248;248;242m    origin                       Indicate that the object must have its origin processed[0m
+[38;5;238m 182[0m   [38;5;238m│[0m [38;2;248;248;242m    nocopyreloc                  Disable the creation of copy relocations[0m
+[38;5;238m 183[0m   [38;5;238m│[0m [38;2;248;248;242m    now                          (default) Force all relocations to be processed on load[0m
+[38;5;238m 184[0m   [38;5;238m│[0m [38;2;248;248;242m    lazy                         Don't force all relocations to be processed on load[0m
+[38;5;238m 185[0m   [38;5;238m│[0m [38;2;248;248;242m    relro                        (default) Force all relocations to be read-only after processin[0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242mg[0m
+[38;5;238m 186[0m   [38;5;238m│[0m [38;2;248;248;242m    norelro                      Don't force all relocations to be read-only after processing[0m
+[38;5;238m 187[0m   [38;5;238m│[0m [38;2;248;248;242m    common-page-size=[bytes]     Set the common page size for ELF binaries[0m
+[38;5;238m 188[0m   [38;5;238m│[0m [38;2;248;248;242m    max-page-size=[bytes]        Set the max page size for ELF binaries[0m
+[38;5;238m 189[0m   [38;5;238m│[0m [38;2;248;248;242m  -dynamic                       Force output to be dynamically linked[0m
+[38;5;238m 190[0m   [38;5;238m│[0m [38;2;248;248;242m  -static                        Force output to be statically linked[0m
+[38;5;238m 191[0m   [38;5;238m│[0m [38;2;248;248;242m  -Bsymbolic                     Bind global references locally[0m
+[38;5;238m 192[0m   [38;5;238m│[0m [38;2;248;248;242m  --compress-debug-sections=[e]  Debug section compression settings[0m
+[38;5;238m 193[0m   [38;5;238m│[0m [38;2;248;248;242m      none                       No compression[0m
+[38;5;238m 194[0m   [38;5;238m│[0m [38;2;248;248;242m      zlib                       Compression with deflate/inflate[0m
+[38;5;238m 195[0m   [38;5;238m│[0m [38;2;248;248;242m  --gc-sections                  Force removal of functions and data that are unreachable by the[0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242m entry point or exported symbols[0m
+[38;5;238m 196[0m   [38;5;238m│[0m [38;2;248;248;242m  --no-gc-sections               Don't force removal of unreachable functions and data[0m
+[38;5;238m 197[0m   [38;5;238m│[0m [38;2;248;248;242m  --sort-section=[value]         Sort wildcard section patterns by 'name' or 'alignment'[0m
+[38;5;238m 198[0m   [38;5;238m│[0m [38;2;248;248;242m  --subsystem [subsystem]        (Windows) /SUBSYSTEM:<subsystem> to the linker[0m
+[38;5;238m 199[0m   [38;5;238m│[0m [38;2;248;248;242m  --stack [size]                 Override default stack size[0m
+[38;5;238m 200[0m   [38;5;238m│[0m [38;2;248;248;242m  --image-base [addr]            Set base address for executable image[0m
+[38;5;238m 201[0m   [38;5;238m│[0m [38;2;248;248;242m  -framework [name]              (Darwin) link against framework[0m
+[38;5;238m 202[0m   [38;5;238m│[0m [38;2;248;248;242m  -needed_framework [name]       (Darwin) link against framework (even if unused)[0m
+[38;5;238m 203[0m   [38;5;238m│[0m [38;2;248;248;242m  -needed_library [lib]          link against system library (even if unused)[0m
+[38;5;238m 204[0m   [38;5;238m│[0m [38;2;248;248;242m  -weak_framework [name]         (Darwin) link against framework and mark it and all referenced [0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242msymbols as weak[0m
+[38;5;238m 205[0m   [38;5;238m│[0m [38;2;248;248;242m  -F[dir]                        (Darwin) add search path for frameworks[0m
+[38;5;238m 206[0m   [38;5;238m│[0m [38;2;248;248;242m  -install_name=[value]          (Darwin) add dylib's install name[0m
+[38;5;238m 207[0m   [38;5;238m│[0m [38;2;248;248;242m  --entitlements [path]          (Darwin) add path to entitlements file for embedding in code si[0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242mgnature[0m
+[38;5;238m 208[0m   [38;5;238m│[0m [38;2;248;248;242m  -pagezero_size [value]         (Darwin) size of the __PAGEZERO segment in hexadecimal notation[0m
+[38;5;238m 209[0m   [38;5;238m│[0m [38;2;248;248;242m  -headerpad [value]             (Darwin) set minimum space for future expansion of the load com[0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242mmands in hexadecimal notation[0m
+[38;5;238m 210[0m   [38;5;238m│[0m [38;2;248;248;242m  -headerpad_max_install_names   (Darwin) set enough space as if all paths were MAXPATHLEN[0m
+[38;5;238m 211[0m   [38;5;238m│[0m [38;2;248;248;242m  -dead_strip                    (Darwin) remove functions and data that are unreachable by the [0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242mentry point or exported symbols[0m
+[38;5;238m 212[0m   [38;5;238m│[0m [38;2;248;248;242m  -dead_strip_dylibs             (Darwin) remove dylibs that are unreachable by the entry point [0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242mor exported symbols[0m
+[38;5;238m 213[0m   [38;5;238m│[0m [38;2;248;248;242m  --import-memory                (WebAssembly) import memory from the environment[0m
+[38;5;238m 214[0m   [38;5;238m│[0m [38;2;248;248;242m  --export-memory                (WebAssembly) export memory to the host (Default unless --impor[0m
+[38;5;238m    [0m   [38;5;238m│[0m [38;2;248;248;242mt-memory used)[0m
+[38;5;238m 215[0m   [38;5;238m│[0m [38;2;248;248;242m  --import-symbols               (WebAssembly) import missing symbols from the host environment[0m
+[38;5;238m 216[0m   [38;5;238m│[0m [38;2;248;248;242m  --import-table                 (WebAssembly) import function table from the host environment[0m
+[38;5;238m 217[0m   [38;5;238m│[0m [38;2;248;248;242m  --export-table                 (WebAssembly) export function table to the host environment[0m
+[38;5;238m 218[0m   [38;5;238m│[0m [38;2;248;248;242m  --initial-memory=[bytes]       (WebAssembly) initial size of the linear memory[0m
+[38;5;238m 219[0m   [38;5;238m│[0m [38;2;248;248;242m  --max-memory=[bytes]           (WebAssembly) maximum size of the linear memory[0m
+[38;5;238m 220[0m   [38;5;238m│[0m [38;2;248;248;242m  --shared-memory                (WebAssembly) use shared linear memory[0m
+[38;5;238m 221[0m   [38;5;238m│[0m [38;2;248;248;242m  --global-base=[addr]           (WebAssembly) where to start to place global data[0m
+[38;5;238m 222[0m   [38;5;238m│[0m [38;2;248;248;242m  --export=[value]               (WebAssembly) Force a symbol to be exported[0m
+[38;5;238m 223[0m   [38;5;238m│[0m 
+[38;5;238m 224[0m   [38;5;238m│[0m [38;2;248;248;242mTest Options:[0m
+[38;5;238m 225[0m   [38;5;238m│[0m [38;2;248;248;242m  --test-filter [text]           Skip tests that do not match filter[0m
+[38;5;238m 226[0m   [38;5;238m│[0m [38;2;248;248;242m  --test-name-prefix [text]      Add prefix to all tests[0m
+[38;5;238m 227[0m   [38;5;238m│[0m [38;2;248;248;242m  --test-cmd [arg]               Specify test execution command one arg at a time[0m
+[38;5;238m 228[0m   [38;5;238m│[0m [38;2;248;248;242m  --test-cmd-bin                 Appends test binary path to test cmd args[0m
+[38;5;238m 229[0m   [38;5;238m│[0m [38;2;248;248;242m  --test-evented-io              Runs the test in evented I/O mode[0m
+[38;5;238m 230[0m   [38;5;238m│[0m [38;2;248;248;242m  --test-no-exec                 Compiles test binary without running it[0m
+[38;5;238m 231[0m   [38;5;238m│[0m [38;2;248;248;242m  --test-runner [path]           Specify a custom test runner[0m
+[38;5;238m 232[0m   [38;5;238m│[0m 
+[38;5;238m 233[0m   [38;5;238m│[0m [38;2;248;248;242mDebug Options (Zig Compiler Development):[0m
+[38;5;238m 234[0m   [38;5;238m│[0m [38;2;248;248;242m  -fopt-bisect-limit=[limit]   Only run [limit] first LLVM optimization passes[0m
+[38;5;238m 235[0m   [38;5;238m│[0m [38;2;248;248;242m  -ftime-report                Print timing diagnostics[0m
+[38;5;238m 236[0m   [38;5;238m│[0m [38;2;248;248;242m  -fstack-report               Print stack size diagnostics[0m
+[38;5;238m 237[0m   [38;5;238m│[0m [38;2;248;248;242m  --verbose-link               Display linker invocations[0m
+[38;5;238m 238[0m   [38;5;238m│[0m [38;2;248;248;242m  --verbose-cc                 Display C compiler invocations[0m
+[38;5;238m 239[0m   [38;5;238m│[0m [38;2;248;248;242m  --verbose-air                Enable compiler debug output for Zig AIR[0m
+[38;5;238m 240[0m   [38;5;238m│[0m [38;2;248;248;242m  --verbose-intern-pool        Enable compiler debug output for InternPool[0m
+[38;5;238m 241[0m   [38;5;238m│[0m [38;2;248;248;242m  --verbose-generic-instances  Enable compiler debug output for generic instance generation[0m
+[38;5;238m 242[0m   [38;5;238m│[0m [38;2;248;248;242m  --verbose-llvm-ir[=path]     Enable compiler debug output for unoptimized LLVM IR[0m
+[38;5;238m 243[0m   [38;5;238m│[0m [38;2;248;248;242m  --verbose-llvm-bc=[path]     Enable compiler debug output for unoptimized LLVM BC[0m
+[38;5;238m 244[0m   [38;5;238m│[0m [38;2;248;248;242m  --verbose-cimport            Enable compiler debug output for C imports[0m
+[38;5;238m 245[0m   [38;5;238m│[0m [38;2;248;248;242m  --verbose-llvm-cpu-features  Enable compiler debug output for LLVM CPU features[0m
+[38;5;238m 246[0m   [38;5;238m│[0m [38;2;248;248;242m  --debug-log [scope]          Enable printing debug/info log messages for scope[0m
+[38;5;238m 247[0m   [38;5;238m│[0m [38;2;248;248;242m  --debug-compile-errors       Crash with helpful diagnostics at the first compile error[0m
+[38;5;238m 248[0m   [38;5;238m│[0m [38;2;248;248;242m  --debug-link-snapshot        Enable dumping of the linker's state in JSON format[0m
+[38;5;238m───────┴─────────────────────────────────────────────────────────────────────────────────────────────────[0m
